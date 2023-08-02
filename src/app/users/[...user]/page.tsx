@@ -4,6 +4,8 @@ import findUser from '@/lib/findUser'
 interface Props {
   params: {
     user: string[]
+    // ex /users/user1/money
+    // user = ['user1', 'money']
   }
   searchParams: {
     [key: string]: string
