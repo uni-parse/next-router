@@ -5,6 +5,7 @@ import util from 'util'
 // same as fs.readFileSync(), we do that to just to test async
 const readFile = util.promisify(fs.readFile)
 const wait = (ms: number) =>
+  // eslint-disable-next-line no-promise-executor-return
   new Promise(rs => setTimeout(rs, ms))
 
 const page = async () => {

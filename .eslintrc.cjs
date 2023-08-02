@@ -20,6 +20,9 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': 'off',
     'no-return-assign': 'off',
 
+
+    '@typescript-eslint/no-implied-eval': 'off',
+    '@typescript-eslint/no-throw-literal': 'off',
     /*
     '@typescript-eslint/lines-between-class-members': 'off',
     'no-promise-executor-return': 'off',

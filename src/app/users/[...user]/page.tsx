@@ -1,5 +1,41 @@
 /* eslint-disable react/no-unescaped-entities */
+import fs from 'fs'
+import path from 'path'
+import { Metadata } from 'next'
 import findUser from '@/lib/findUser'
+
+export const metadata: Metadata = {
+  title: 'profile',
+  description: 'user profile of money and xp status',
+}
+
+export async function generateStaticParams() {
+  const usersPath = path.join(process.cwd(), 'db', 'users.json')
+  const usersJson = fs.readFileSync(usersPath, 'utf8')
+  const users = JSON.parse(usersJson)
+
+  interface User {
+    name: string
+    money: number
+    xp: number
+  }
+
+  const userNames = users.map((user: User) => user.name)
+
+  const staticPaths = userNames
+    .map((name: string) => [
+      [name],
+      [name, 'xp'],
+      [name, 'money'],
+    ])
+    .flat()
+
+  const params = staticPaths.map((staticPath: string[][]) => ({
+    user: staticPath,
+  }))
+
+  return params
+}
 
 interface Props {
   params: {
