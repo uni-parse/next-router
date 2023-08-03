@@ -4,11 +4,6 @@ import { Metadata } from 'next'
 import findUser from '@/lib/findUser'
 import getUsersArrRoutes from '@/lib/getUsersArrRoutes'
 
-export const metadata: Metadata = {
-  title: 'profile',
-  description: 'user profile of money and xp status',
-}
-
 export async function generateStaticParams() {
   const usersArrRoutes = getUsersArrRoutes()
   const params = usersArrRoutes.map(arrRoute => ({
@@ -19,9 +14,9 @@ export async function generateStaticParams() {
 
 interface Props {
   params: {
-    user: string[]
-    // ex /users/user1/money
-    // user = ['user1', 'money']
+    user: [string, ('money' | 'xp')?]
+    // ex /users/user1 or /users/user1/money
+    // user = ['user1', 'money'?]
   }
   searchParams: {
     [key: string]: string
@@ -84,4 +79,17 @@ export default async function Page(props: Props) {
       </h3>
     </>
   )
+}
+
+export async function generateMetadata(props: Props) {
+  const [userName, state] = props.params.user
+
+  const metadata: Metadata = {
+    title: `${userName} ${state ?? ''}`,
+    description: state
+      ? `${userName} ${state} state, (more info)`
+      : `${userName} Profile, (more info)`,
+    colorScheme: 'dark',
+  }
+  return metadata
 }
