@@ -1,8 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
-import fs from 'fs'
-import path from 'path'
+
 import { Metadata } from 'next'
 import findUser from '@/lib/findUser'
+import getUsersArrRoutes from '@/lib/getUsersArrRoutes'
 
 export const metadata: Metadata = {
   title: 'profile',
@@ -10,30 +10,10 @@ export const metadata: Metadata = {
 }
 
 export async function generateStaticParams() {
-  const usersPath = path.join(process.cwd(), 'db', 'users.json')
-  const usersJson = fs.readFileSync(usersPath, 'utf8')
-  const users = JSON.parse(usersJson)
-
-  interface User {
-    name: string
-    money: number
-    xp: number
-  }
-
-  const userNames = users.map((user: User) => user.name)
-
-  const staticPaths = userNames
-    .map((name: string) => [
-      [name],
-      [name, 'xp'],
-      [name, 'money'],
-    ])
-    .flat()
-
-  const params = staticPaths.map((staticPath: string[][]) => ({
-    user: staticPath,
+  const usersArrRoutes = getUsersArrRoutes()
+  const params = usersArrRoutes.map(arrRoute => ({
+    user: arrRoute,
   }))
-
   return params
 }
 
