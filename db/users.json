@@ -13,15 +13,5 @@
     "name": "user3",
     "money": 3000,
     "xp": 300
-  },
-  {
-    "name": "user4",
-    "money": 4000,
-    "xp": 400
-  },
-  {
-    "name": "user5",
-    "money": 5000,
-    "xp": 500
   }
 ]

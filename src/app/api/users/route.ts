@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
   fs.writeFileSync(usersPath, usersJson)
 
   const res = JSON.stringify({
-    newUsers,
+    users: newUsers,
     message: `${newUser.name} added successfully`,
   })
 

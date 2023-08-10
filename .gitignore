@@ -15,6 +15,9 @@
 # production
 /build
 
+# dataBase
+/db/users.json
+
 # misc
 .DS_Store
 *.pem

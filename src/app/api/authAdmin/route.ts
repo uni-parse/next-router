@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
   const res = JSON.stringify({
     message: access
       ? 'Access Granted !!'
-      : 'Invalid Password !!',
+      : `"${userPw}" Are Invalid Password !!`,
   })
 
   return new Response(res, { status: access ? 200 : 404 })
